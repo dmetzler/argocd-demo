@@ -1,0 +1,20 @@
+iapiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-app
+  namespace: argocd
+spec:
+  destination:
+    name: in-cluster
+    namespace: argocd
+  project: default
+  source:
+    directory:
+      jsonnet: {}
+      recurse: true
+    path: app
+    repoURL: git@github.com:dmetzler/argocd-demo
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      enabled: true
