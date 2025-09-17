@@ -10,11 +10,11 @@ spec:
         app.kubernetes.io/name: game2048
     spec:
       containers:
-        - image: dmetzler/web-color
+        - image: dmetzler/web-color@sha256:913be5f9930bbbde778c109a91a80eb1f6990dce8d25916a41fcf92c3be7a9d5
           imagePullPolicy: Always
           name: color
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           env:
-           - name: COLOR
-             value: "#00ff00"
+            - name: COLOR
+              value: "#00ff00"
