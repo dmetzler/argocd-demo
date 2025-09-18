@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: dmetzler-colours
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
+  generators:
+    - list:
+        elements:
+          - color: "#FF0000"
+            name: red
+          - color: "#0000FF"
+            name: blue
+          - color: "#00FF00"
+            name: green
+  template:
+    metadata:
+      name: "dmetzler-{{.name}}-color"
+    spec:
+      project: default
+      source:
+        repoURL: "https://github.com/dmetzler/argocd-demo.git"
+        targetRevision: HEAD
+        path: colorChart
+        helm:
+          valuesObject:
+            color: "{{.color}}"
+            name: "{{.name}}"
+      destination:
+        namespace: dmetzler
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated: {}
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true # Big CRDs.

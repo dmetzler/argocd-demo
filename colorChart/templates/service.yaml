@@ -1,0 +1,19 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: colour
+    spec:
+      containers:
+        - image: dmetzler/web-color@sha256:913be5f9930bbbde778c109a91a80eb1f6990dce8d25916a41fcf92c3be7a9d5
+          imagePullPolicy: Always
+          name: color
+          ports:
+            - containerPort: 8000
+          env:
+            - name: COLOR
+              value: {{ .Values.color }}
