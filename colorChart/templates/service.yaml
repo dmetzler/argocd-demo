@@ -1,7 +1,7 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: {{ .Values.name }}
+  name: "{{ .Values.name }}"
 spec:
   template:
     metadata:
@@ -16,4 +16,4 @@ spec:
             - containerPort: 8000
           env:
             - name: COLOR
-              value: {{ .Values.color }}
+              value: "{{ .Values.color }}"
